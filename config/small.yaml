@@ -1,0 +1,19 @@
+seed: 42
+n_tickets: 5000
+date_range:
+  start: "2023-01-01"
+  end: "2025-12-31"
+zipf_s: 1.0
+ambiguity_rate: 0.10
+intake_component_accuracy: 0.70
+label_noise_rate: 0.05
+typo_rate: 0.03
+casing_rate: 0.02
+reassignment_prob: 0.25
+error_signature_rate: 0.30
+drift:
+  enabled: true
+  start: "2025-01-01"
+  rate: 0.40
+out_dir: data/generated_small
+phrase_dir: data/phrases

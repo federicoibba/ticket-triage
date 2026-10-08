@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# The generated datasets ARE committed (they are the visible artifact).
+# Only the train/val/test splits are ignored: they are a deterministic temporal
+# split of tickets.csv, and scripts/baseline.py regenerates them on demand.
+data/*/splits/

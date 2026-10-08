@@ -1,0 +1,884 @@
+{
+  "Payments & Billing": {
+    "component": "Billing",
+    "entities": [
+      "subscription renewal",
+      "invoice PDF",
+      "refund request",
+      "dunning email",
+      "payment method",
+      "checkout session",
+      "proration credit",
+      "tax line item",
+      "billing address",
+      "coupon code",
+      "trial conversion",
+      "chargeback"
+    ],
+    "symptoms": [
+      "fails silently",
+      "is generated twice",
+      "never arrives",
+      "shows the wrong amount",
+      "stays stuck in pending",
+      "throws a validation error",
+      "is not applied at checkout",
+      "disappears after an upgrade"
+    ],
+    "actions": [
+      "refund",
+      "renew",
+      "retry",
+      "reconcile",
+      "void",
+      "apply",
+      "update",
+      "download"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "Cannot {action} {entity} on {product}",
+      "{entity} {symptom} during checkout",
+      "{action} fails for {entity}",
+      "{entity} error on {product}",
+      "{symptom} while trying to {action} {entity}",
+      "{product} {action}: {entity} {symptom}"
+    ],
+    "description_openers": [
+      "A customer reports that",
+      "Since this morning,",
+      "On the {product} checkout flow,",
+      "For enterprise accounts,",
+      "In the billing portal,",
+      "During renewal,",
+      "After the latest deploy,",
+      "A few users noticed that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "they cannot complete the purchase",
+      "the amount charged does not match the order",
+      "the invoice is missing a tax line",
+      "their card is declined unexpectedly",
+      "the dunning email is never sent",
+      "the proration credit is applied incorrectly"
+    ],
+    "description_impact": [
+      "customers cannot complete purchases",
+      "revenue is blocked for the affected accounts",
+      "support is receiving a spike in billing complaints",
+      "finance cannot reconcile the month",
+      "users lose trust in the billing flow"
+    ],
+    "description_expected": [
+      "it should retry the charge automatically",
+      "the invoice should reflect the correct amount",
+      "the refund should appear within minutes",
+      "the coupon should apply before tax",
+      "the renewal should not double-charge"
+    ],
+    "error_signatures": [
+      "500 on POST /v1/payments/charge",
+      "PAYMENT_DECLINED",
+      "invoice_total_mismatch",
+      "ERR_DUNNING_QUEUE",
+      "tax_calc_failed"
+    ]
+  },
+  "Auth & Identity": {
+    "component": "Identity",
+    "entities": [
+      "SSO login",
+      "password reset",
+      "MFA challenge",
+      "session token",
+      "OAuth callback",
+      "user profile",
+      "email verification",
+      "API key",
+      "refresh token",
+      "identity provider"
+    ],
+    "symptoms": [
+      "fails intermittently",
+      "loops back to the login page",
+      "never arrives",
+      "expires too early",
+      "is rejected as invalid",
+      "returns a 401 unexpectedly",
+      "does not persist across tabs",
+      "locks the account"
+    ],
+    "actions": [
+      "log in",
+      "sign out",
+      "reset",
+      "verify",
+      "refresh",
+      "link",
+      "revoke",
+      "enable"
+    ],
+    "title_templates": [
+      "Cannot {action} with {entity} on {product}",
+      "{entity} {symptom}",
+      "{entity} {symptom} for enterprise users",
+      "SSO: {entity} {symptom}",
+      "{action} loop with {entity}",
+      "{entity} error on {product}"
+    ],
+    "description_openers": [
+      "Users report that",
+      "Intermittently,",
+      "On the {product} sign-in page,",
+      "For SSO tenants,",
+      "After a password rotation,",
+      "Since the identity provider change,",
+      "Several admins report that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "users are bounced back to the sign-in screen",
+      "the MFA prompt never appears",
+      "the reset link points to an expired page",
+      "the token is revoked mid-session",
+      "the OAuth callback drops the state parameter"
+    ],
+    "description_impact": [
+      "users cannot access their accounts",
+      "an entire tenant is locked out",
+      "support volume spikes during login",
+      "security is at risk for affected users"
+    ],
+    "description_expected": [
+      "the session should persist until logout",
+      "the reset email should arrive within a minute",
+      "MFA should accept the current TOTP code",
+      "the token should refresh silently"
+    ],
+    "error_signatures": [
+      "401 Unauthorized on /oauth/token",
+      "invalid_grant",
+      "MFA_TIMEOUT",
+      "session_expired",
+      "state_parameter_mismatch"
+    ]
+  },
+  "Search & Discovery": {
+    "component": "Search",
+    "entities": [
+      "search results",
+      "autocomplete suggestions",
+      "filters",
+      "saved search",
+      "index",
+      "query",
+      "ranking",
+      "faceted navigation",
+      "search bar",
+      "synonyms"
+    ],
+    "symptoms": [
+      "return no results",
+      "are ranked incorrectly",
+      "take too long to load",
+      "ignore the selected filter",
+      "show stale entries",
+      "are missing new items",
+      "duplicate the same document"
+    ],
+    "actions": [
+      "search",
+      "filter",
+      "sort",
+      "save",
+      "reindex",
+      "refine",
+      "export"
+    ],
+    "title_templates": [
+      "{entity} {symptom} on {product}",
+      "Cannot {action} {entity}",
+      "{entity} {symptom}",
+      "Search: {entity} {symptom}",
+      "{action} returns wrong {entity}",
+      "{entity} {symptom} after reindex"
+    ],
+    "description_openers": [
+      "Users complain that",
+      "On {product},",
+      "After the reindex,",
+      "When searching for a known term,",
+      "In the search bar,",
+      "For large tenants,"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the query is tokenized incorrectly",
+      "the index is behind by hours",
+      "the filter is dropped after pagination",
+      "synonyms are not applied to the query"
+    ],
+    "description_impact": [
+      "users cannot find relevant content",
+      "discovery conversion drops",
+      "support gets repeated cannot-find tickets"
+    ],
+    "description_expected": [
+      "results should match the query terms",
+      "new documents should appear within minutes",
+      "filters should persist across pages"
+    ],
+    "error_signatures": [
+      "ES_QUERY_TIMEOUT",
+      "empty_results_for_known_term",
+      "index_lag_exceeded",
+      "tokenizer_mismatch"
+    ]
+  },
+  "Notifications & Messaging": {
+    "component": "Messaging",
+    "entities": [
+      "email notification",
+      "push notification",
+      "in-app message",
+      "digest",
+      "webhook",
+      "SMS alert",
+      "unsubscribe link",
+      "template",
+      "delivery receipt",
+      "bounce"
+    ],
+    "symptoms": [
+      "is never delivered",
+      "arrives hours late",
+      "is sent twice",
+      "renders broken",
+      "ignores preferences",
+      "bounces silently",
+      "contains the wrong variables"
+    ],
+    "actions": [
+      "send",
+      "retry",
+      "unsubscribe",
+      "schedule",
+      "templatize",
+      "throttle",
+      "resend"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} on {product}",
+      "Cannot {action} {entity}",
+      "{action} does not deliver {entity}",
+      "{entity} not received",
+      "{product}: {entity} {symptom}"
+    ],
+    "description_openers": [
+      "Recipients report that",
+      "Since the last campaign,",
+      "On {product},",
+      "For opted-in users,",
+      "After a template change,",
+      "During peak traffic,"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the template variables are blank",
+      "the webhook fires without a signature",
+      "the digest is batched with stale content",
+      "the unsubscribe link returns a 404"
+    ],
+    "description_impact": [
+      "users miss time-sensitive alerts",
+      "transactional messages are lost",
+      "compliance requires a working unsubscribe link"
+    ],
+    "description_expected": [
+      "the notification should arrive within a minute",
+      "the webhook should be retried on failure",
+      "preferences should be honored per channel"
+    ],
+    "error_signatures": [
+      "SMTP_550",
+      "provider_rate_limited",
+      "template_var_missing",
+      "push_token_invalid",
+      "webhook_404"
+    ]
+  },
+  "Web Frontend": {
+    "component": "Frontend",
+    "entities": [
+      "dashboard page",
+      "settings screen",
+      "navigation menu",
+      "form validation",
+      "date picker",
+      "modal dialog",
+      "data table",
+      "theme toggle",
+      "tooltip",
+      "keyboard shortcut"
+    ],
+    "symptoms": [
+      "is blank on load",
+      "overlaps on mobile",
+      "throws a console error",
+      "freezes the tab",
+      "loses unsaved input",
+      "misaligns after resize",
+      "ignores dark mode"
+    ],
+    "actions": [
+      "render",
+      "navigate",
+      "submit",
+      "toggle",
+      "resize",
+      "export",
+      "copy"
+    ],
+    "title_templates": [
+      "{entity} {symptom} in {product}",
+      "{entity} {symptom}",
+      "UI: {entity} {symptom}",
+      "Cannot {action} from {entity}",
+      "{entity} {symptom} on small screens",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "On the {product} web app,",
+      "In Chrome and Safari,",
+      "On a 13-inch laptop,",
+      "When the viewport is narrow,",
+      "After the redesign,",
+      "Users report that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the layout breaks below 768px",
+      "the component remounts on every keystroke",
+      "the focus ring is invisible",
+      "the table overflows its container"
+    ],
+    "description_impact": [
+      "users cannot complete the workflow",
+      "the page feels broken on Safari",
+      "accessibility checks fail"
+    ],
+    "description_expected": [
+      "the layout should stay responsive",
+      "input should persist across navigation",
+      "the modal should trap focus"
+    ],
+    "error_signatures": [
+      "Uncaught TypeError: cannot read properties of undefined",
+      "hydration_mismatch",
+      "ChunkLoadError",
+      "ResizeObserver loop limit exceeded"
+    ]
+  },
+  "Mobile Apps": {
+    "component": "Mobile",
+    "entities": [
+      "iOS build",
+      "Android release",
+      "offline sync",
+      "push deep link",
+      "biometric login",
+      "app crash",
+      "OTA update",
+      "permissions prompt",
+      "background fetch",
+      "app store listing"
+    ],
+    "symptoms": [
+      "crashes on launch",
+      "drains the battery",
+      "fails on Android 14",
+      "hangs at splash",
+      "loses data offline",
+      "is rejected by review",
+      "shows a blank screen"
+    ],
+    "actions": [
+      "launch",
+      "sync",
+      "update",
+      "install",
+      "upload",
+      "resume",
+      "authenticate"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "App {symptom} on {product}",
+      "{entity} {symptom} on iOS",
+      "{entity} {symptom} on Android",
+      "Cannot {action} in the mobile app",
+      "{product} mobile: {entity} {symptom}"
+    ],
+    "description_openers": [
+      "Testers report that",
+      "On a Pixel 8,",
+      "On the latest iOS release,",
+      "After the OTA update,",
+      "In the {product} mobile app,",
+      "Some devices report that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the app crashes in the background",
+      "the deep link opens the wrong screen",
+      "offline changes are lost on reconnect",
+      "the biometric prompt never resolves"
+    ],
+    "description_impact": [
+      "users cannot use the app offline",
+      "crash-free sessions drop",
+      "the store rating is affected"
+    ],
+    "description_expected": [
+      "the app should launch within two seconds",
+      "offline changes should sync on reconnect",
+      "the deep link should open the target screen"
+    ],
+    "error_signatures": [
+      "SIGABRT in MainActivity",
+      "NSInvalidArgumentException",
+      "ANR: input dispatching timed out",
+      "EXC_BAD_ACCESS"
+    ]
+  },
+  "API & Integrations": {
+    "component": "API",
+    "entities": [
+      "REST endpoint",
+      "GraphQL query",
+      "webhook subscription",
+      "rate limit",
+      "pagination cursor",
+      "OAuth scope",
+      "API key",
+      "SDK",
+      "payload schema",
+      "third-party connector"
+    ],
+    "symptoms": [
+      "returns 500",
+      "times out",
+      "returns stale data",
+      "rejects valid payloads",
+      "silently truncates",
+      "breaks backward compatibility",
+      "hits the rate limit too early"
+    ],
+    "actions": [
+      "call",
+      "authenticate",
+      "paginate",
+      "retry",
+      "migrate",
+      "deprecate",
+      "integrate"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} on {product}",
+      "API: {entity} {symptom}",
+      "Cannot {action} via {entity}",
+      "{entity} {symptom} for new keys",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "Integrators report that",
+      "When calling the {product} API,",
+      "For high-volume clients,",
+      "After the schema change,",
+      "In the sandbox environment,",
+      "A partner integration reports that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the cursor stops advancing after page 10",
+      "the payload is rejected for a valid date format",
+      "the scope is missing from the token",
+      "the response truncates large arrays"
+    ],
+    "description_impact": [
+      "partner integrations break",
+      "clients cannot sync their data",
+      "the API becomes unusable at scale"
+    ],
+    "description_expected": [
+      "the endpoint should accept the documented payload",
+      "pagination should advance until exhaustion",
+      "the rate limit should match the published plan"
+    ],
+    "error_signatures": [
+      "500 Internal Server Error on GET /v1/resource",
+      "429 Too Many Requests",
+      "schema_validation_error",
+      "webhook_signature_mismatch"
+    ]
+  },
+  "Data Platform": {
+    "component": "Data",
+    "entities": [
+      "ETL pipeline",
+      "data ingestion job",
+      "schema migration",
+      "Kafka topic",
+      "data warehouse table",
+      "CDC stream",
+      "partition",
+      "backfill",
+      "dedup job",
+      "connector"
+    ],
+    "symptoms": [
+      "is delayed by hours",
+      "drops records",
+      "fails on schema change",
+      "duplicates rows",
+      "stalls without alerting",
+      "corrupts the partition",
+      "is missing the latest batch"
+    ],
+    "actions": [
+      "ingest",
+      "backfill",
+      "migrate",
+      "compact",
+      "reprocess",
+      "sync"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} on {product}",
+      "Data: {entity} {symptom}",
+      "Cannot {action} {entity}",
+      "{entity} {symptom} after the migration",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "The pipeline reports that",
+      "Since the schema migration,",
+      "On the {product} data platform,",
+      "Overnight,",
+      "For the largest tenant,",
+      "After adding a new connector,"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the consumer lag keeps growing",
+      "the new column is not backfilled",
+      "the dedup job misses late events",
+      "the connector commits offsets too early"
+    ],
+    "description_impact": [
+      "downstream dashboards are stale",
+      "data quality checks fail",
+      "customers see incorrect history"
+    ],
+    "description_expected": [
+      "the job should process within the SLA window",
+      "the schema change should be backward compatible",
+      "late events should be deduplicated"
+    ],
+    "error_signatures": [
+      "KafkaConsumer lag exceeded",
+      "schema_registry_conflict",
+      "S3 access denied during ingest",
+      "offset_commit_failed"
+    ]
+  },
+  "Reporting & Analytics": {
+    "component": "Analytics",
+    "entities": [
+      "dashboard chart",
+      "scheduled report",
+      "metric definition",
+      "cohort analysis",
+      "funnel report",
+      "CSV export",
+      "timezone handling",
+      "aggregation",
+      "attribution model",
+      "KPI"
+    ],
+    "symptoms": [
+      "shows the wrong numbers",
+      "is out of date",
+      "fails to export",
+      "mixes timezones",
+      "double counts events",
+      "is missing recent data",
+      "renders an empty chart"
+    ],
+    "actions": [
+      "export",
+      "schedule",
+      "aggregate",
+      "filter",
+      "share",
+      "recompute"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} in {product}",
+      "Analytics: {entity} {symptom}",
+      "Cannot {action} {entity}",
+      "{entity} {symptom} for last month",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "Analysts report that",
+      "On the {product} dashboard,",
+      "For the monthly close,",
+      "After a timezone change,",
+      "When comparing periods,",
+      "A customer reports that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the rollup is off by one day",
+      "the same event is counted twice",
+      "the export times out for large ranges",
+      "the metric definition changed silently"
+    ],
+    "description_impact": [
+      "customers distrust the numbers",
+      "monthly reporting is blocked",
+      "executives see inconsistent KPIs"
+    ],
+    "description_expected": [
+      "the chart should match the raw events",
+      "exports should complete for a full year",
+      "timezones should be applied consistently"
+    ],
+    "error_signatures": [
+      "aggregation_overflow",
+      "export_timeout",
+      "tz_mismatch_in_rollup",
+      "metric_not_found"
+    ]
+  },
+  "Infrastructure & DevOps": {
+    "component": "Infra",
+    "entities": [
+      "production deployment",
+      "CI pipeline",
+      "Kubernetes pod",
+      "autoscaling group",
+      "CDN cache",
+      "DNS record",
+      "Terraform plan",
+      "log pipeline",
+      "alert rule",
+      "secret rotation"
+    ],
+    "symptoms": [
+      "fails during rollout",
+      "restarts repeatedly",
+      "leaks memory",
+      "is stuck in CrashLoopBackOff",
+      "does not propagate",
+      "exhausts disk space",
+      "is flapping"
+    ],
+    "actions": [
+      "deploy",
+      "rollback",
+      "scale",
+      "rotate",
+      "provision",
+      "restart"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} in production",
+      "Infra: {entity} {symptom}",
+      "Cannot {action} {entity}",
+      "{entity} {symptom} during peak hours",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "On-call reports that",
+      "During the last rollout,",
+      "In the production cluster,",
+      "At peak traffic,",
+      "After the autoscaling event,",
+      "The platform team reports that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the pod is OOMKilled every few minutes",
+      "the CDN keeps serving a stale asset",
+      "the alert rule fires on healthy nodes",
+      "the deployment stalls at the health check"
+    ],
+    "description_impact": [
+      "the service is partially degraded",
+      "latency SLOs are breached",
+      "releases are blocked"
+    ],
+    "description_expected": [
+      "the deployment should roll out within ten minutes",
+      "pods should survive a memory spike",
+      "alerts should page only on real incidents"
+    ],
+    "error_signatures": [
+      "OOMKilled",
+      "CrashLoopBackOff",
+      "502 Bad Gateway at the edge",
+      "Terraform state lock",
+      "healthcheck_timeout"
+    ]
+  },
+  "Onboarding & Accounts": {
+    "component": "Accounts",
+    "entities": [
+      "signup flow",
+      "workspace invite",
+      "trial setup",
+      "account settings",
+      "team roles",
+      "email verification",
+      "profile import",
+      "organization creation",
+      "billing setup",
+      "welcome tour"
+    ],
+    "symptoms": [
+      "is confusing",
+      "blocks new users",
+      "never sends the invite",
+      "creates duplicate workspaces",
+      "skips a required step",
+      "fails for invited users",
+      "loses the entered data"
+    ],
+    "actions": [
+      "sign up",
+      "invite",
+      "import",
+      "configure",
+      "verify",
+      "create"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} on {product}",
+      "Cannot {action} during {entity}",
+      "Onboarding: {entity} {symptom}",
+      "{entity} {symptom} for new users",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "New users report that",
+      "During signup,",
+      "On the {product} onboarding wizard,",
+      "For invited teammates,",
+      "When creating a workspace,",
+      "A trial customer reports that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the invite token is already expired",
+      "the workspace slug collides with an existing one",
+      "the verification email never arrives",
+      "the profile import stalls at 90%"
+    ],
+    "description_impact": [
+      "new users abandon signup",
+      "teams cannot get started",
+      "activation rate drops"
+    ],
+    "description_expected": [
+      "the invite should work for 7 days",
+      "signup should create exactly one workspace",
+      "imports should complete or fail fast"
+    ],
+    "error_signatures": [
+      "invite_token_invalid",
+      "duplicate_workspace_slug",
+      "signup_validation_failed",
+      "import_timeout"
+    ]
+  },
+  "Security & Compliance": {
+    "component": "Security",
+    "entities": [
+      "audit log",
+      "access review",
+      "SSO enforcement",
+      "data retention policy",
+      "vulnerability scan",
+      "penetration finding",
+      "GDPR export",
+      "IP allowlist",
+      "encryption key",
+      "CVE"
+    ],
+    "symptoms": [
+      "is missing entries",
+      "fails the audit",
+      "leaks PII",
+      "is not enforced",
+      "blocks legitimate users",
+      "triggers a false positive",
+      "is out of date"
+    ],
+    "actions": [
+      "audit",
+      "revoke",
+      "enforce",
+      "export",
+      "rotate",
+      "patch"
+    ],
+    "title_templates": [
+      "{entity} {symptom}",
+      "{entity} {symptom} on {product}",
+      "Security: {entity} {symptom}",
+      "Cannot {action} {entity}",
+      "{entity} {symptom} after the review",
+      "{product} {entity} {symptom}"
+    ],
+    "description_openers": [
+      "The security team reports that",
+      "During the compliance review,",
+      "On {product},",
+      "For enterprise tenants,",
+      "After the vulnerability scan,",
+      "A customer audit found that"
+    ],
+    "description_context": [
+      "the {entity} {symptom}",
+      "the export includes unmasked email addresses",
+      "the allowlist blocks the office range",
+      "the key has not rotated in 400 days",
+      "the scan flags a known false positive"
+    ],
+    "description_impact": [
+      "the audit cannot be signed off",
+      "PII is exposed in an export",
+      "customers cannot reach the workspace"
+    ],
+    "description_expected": [
+      "the audit log should be complete and immutable",
+      "exports should mask personal data",
+      "keys should rotate every 90 days"
+    ],
+    "error_signatures": [
+      "audit_log_gap_detected",
+      "pii_in_export",
+      "policy_violation",
+      "allowlist_block"
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "generic_titles": [
+    "Something is broken",
+    "The page is not working",
+    "Getting an error",
+    "Urgent issue, need help",
+    "It stopped working after the update",
+    "Cannot access my account",
+    "Data looks wrong",
+    "Slow performance",
+    "Unexpected behavior",
+    "Request failed",
+    "Please help, this is urgent",
+    "Nothing works today"
+  ],
+  "generic_descriptions": [
+    "It was working yesterday and now it fails on {product}. Please investigate as soon as possible.",
+    "Several users on {product} are reporting the same problem. We could not find a workaround.",
+    "This is blocking our team on {product}. We need an update today.",
+    "The behavior on {product} is inconsistent and we are not sure which team should look at it.",
+    "We see errors across {product} and cannot narrow it down further. Please route to the right team."
+  ],
+  "ambiguity_terms": [
+    "login",
+    "export",
+    "sync",
+    "report",
+    "notification",
+    "error",
+    "timeout",
+    "permissions",
+    "dashboard",
+    "integration"
+  ],
+  "drift_terms": [
+    "after the AI assistant rollout",
+    "on the new usage-based plan",
+    "in the EU data region",
+    "after the SSO migration",
+    "on the redesigned workspace",
+    "with the new webhook v2",
+    "during the multi-region failover",
+    "after enabling zero-trust mode",
+    "on the new mobile shell",
+    "with the revised SLA tiers"
+  ]
+}

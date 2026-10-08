@@ -65,6 +65,7 @@ regenerating anything:
 - `data/generated{,_small,_medium,_hard}/tickets.csv` — the datasets
 - `data/generated*/datacard.md` — provenance, class distribution, leakage notes
 - `data/generated/learning_curve.csv` — results
+- `data/decisions/*.parquet` — the Unsloth decision-model format (see below)
 - `data/samples/sample_tickets.csv` — a small 120-row sample
 
 Ignored: `data/*/splits/` only — the temporal 70/15/15 split is a deterministic
@@ -79,6 +80,36 @@ PYTHONPATH=src python -m ticketgen.cli generate --config config/default.yaml --w
 Schema highlights: `ticket_id, created_at, product, team (target), title, description,
 type, priority, severity, channel, reporter_type, customer_tier, intake_component,
 reassignment_count, team_path, resolution, resolution_hours`.
+
+## Fine-tuning a decision model (Unsloth, Colab free)
+
+Instead of a classical classifier, you can fine-tune a small LLM into a
+**decision model** that scores all 12 teams and returns calibrated probabilities,
+using the format from
+[Unsloth's decision-model guide](https://unsloth.ai/docs/basics/train-your-own-decision-model-with-unsloth).
+
+Convert the dataset into the `state` / `questions` / `gold` format:
+
+```bash
+python scripts/to_decision_dataset.py --data data/generated --out data/decisions
+```
+
+This writes parquet files to `data/decisions/` (`train.parquet` 14k,
+`train_5k.parquet`, `val.parquet`, `test.parquet`, `sample.parquet`). Each row is:
+
+- `state` — ticket text + intake metadata (JSON; leakage fields excluded)
+- `questions` — one `choice` question, "Which functional team should own this
+  ticket?", with 12 slugged options
+- `gold` — the owning team as a one-hot `choice` answer
+
+Then open [`notebooks/unsloth_decision_colab.ipynb`](notebooks/unsloth_decision_colab.ipynb)
+in Google Colab (Runtime → T4 GPU). It loads the parquet straight from this repo's
+raw GitHub URL, trains `unsloth/Qwen3.5-2B` with LoRA (2 epochs, r=16, lr 2e-4),
+calibrates, and evaluates on the **same temporal test set** as the baseline.
+
+> The decision API and `FastDecisionModel` are new (unsloth `2026.9.14`). Free
+> Colab gives a T4 (fp16 only); the notebook handles that and notes OOM fallbacks.
+> Training results are not deterministic even though the dataset is.
 
 ## Design
 
